@@ -22,7 +22,7 @@ Escolas particulares costumam resolver a comunicação com as famílias e o acom
 - [x] Modelagem inicial com EF Core: `Escola` e `Turma`
 - [x] Banco de dados criado via migrations
 - [x] Endpoints de escolas (`GET /api/escolas` e `POST /api/escolas`) com uso de DTOs
-- [ ] Endpoints de turmas
+- [x] Endpoints de turmas
 - [ ] Alunos, responsáveis e professores
 - [ ] Autenticação e autorização por perfil
 - [ ] Frontend em React
