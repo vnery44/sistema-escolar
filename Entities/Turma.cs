@@ -7,4 +7,5 @@ public class Turma
     public Escola Escola { get; set; } = null!;
     public string Nome { get; set; } = string.Empty;
     public int AnoLetivo { get; set; }
+    public List<Aluno> Alunos { get; set; } = new();
 }
