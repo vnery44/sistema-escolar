@@ -51,6 +51,25 @@ namespace SistemaEscolar.Api.Migrations
                     b.ToTable("Alunos");
                 });
 
+            modelBuilder.Entity("SistemaEscolar.Api.Entities.AlunoResponsavel", b =>
+                {
+                    b.Property<int>("AlunoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResponsavelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Parentesco")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AlunoId", "ResponsavelId");
+
+                    b.HasIndex("ResponsavelId");
+
+                    b.ToTable("AlunoResponsaveis");
+                });
+
             modelBuilder.Entity("SistemaEscolar.Api.Entities.Escola", b =>
                 {
                     b.Property<int>("Id")
@@ -70,6 +89,36 @@ namespace SistemaEscolar.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Escolas");
+                });
+
+            modelBuilder.Entity("SistemaEscolar.Api.Entities.Responsavel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EscolaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EscolaId");
+
+                    b.ToTable("Responsaveis");
                 });
 
             modelBuilder.Entity("SistemaEscolar.Api.Entities.Turma", b =>
@@ -108,6 +157,36 @@ namespace SistemaEscolar.Api.Migrations
                     b.Navigation("Turma");
                 });
 
+            modelBuilder.Entity("SistemaEscolar.Api.Entities.AlunoResponsavel", b =>
+                {
+                    b.HasOne("SistemaEscolar.Api.Entities.Aluno", "Aluno")
+                        .WithMany("Responsaveis")
+                        .HasForeignKey("AlunoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaEscolar.Api.Entities.Responsavel", "Responsavel")
+                        .WithMany("Alunos")
+                        .HasForeignKey("ResponsavelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Aluno");
+
+                    b.Navigation("Responsavel");
+                });
+
+            modelBuilder.Entity("SistemaEscolar.Api.Entities.Responsavel", b =>
+                {
+                    b.HasOne("SistemaEscolar.Api.Entities.Escola", "Escola")
+                        .WithMany()
+                        .HasForeignKey("EscolaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Escola");
+                });
+
             modelBuilder.Entity("SistemaEscolar.Api.Entities.Turma", b =>
                 {
                     b.HasOne("SistemaEscolar.Api.Entities.Escola", "Escola")
@@ -119,9 +198,19 @@ namespace SistemaEscolar.Api.Migrations
                     b.Navigation("Escola");
                 });
 
+            modelBuilder.Entity("SistemaEscolar.Api.Entities.Aluno", b =>
+                {
+                    b.Navigation("Responsaveis");
+                });
+
             modelBuilder.Entity("SistemaEscolar.Api.Entities.Escola", b =>
                 {
                     b.Navigation("Turmas");
+                });
+
+            modelBuilder.Entity("SistemaEscolar.Api.Entities.Responsavel", b =>
+                {
+                    b.Navigation("Alunos");
                 });
 
             modelBuilder.Entity("SistemaEscolar.Api.Entities.Turma", b =>

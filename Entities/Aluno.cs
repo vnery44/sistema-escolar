@@ -8,4 +8,5 @@ public class Aluno
     public string Nome { get; set; } = string.Empty;
     public DateOnly DataNascimento { get; set; }
     public string Matricula { get; set; } = string.Empty;
+    public List<AlunoResponsavel> Responsaveis { get; set; } = new();
 }
